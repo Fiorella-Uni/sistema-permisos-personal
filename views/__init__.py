@@ -1,4 +1,4 @@
-from views.consola import (
+from views.menu import (
     limpiar_pantalla, imprimir_titulo, imprimir_seccion,
     imprimir_exito, imprimir_error, imprimir_advertencia, imprimir_info,
     pausar, solicitar_entrada, solicitar_confirmacion,

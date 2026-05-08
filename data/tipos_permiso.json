@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "descripcion": "Enfermedad / Salud",
+        "remunerado": "S"
+    },
+    {
+        "id": 2,
+        "descripcion": "Calamidad Doméstica",
+        "remunerado": "S"
+    },
+    {
+        "id": 3,
+        "descripcion": "Permiso Personal sin Sueldo",
+        "remunerado": "N"
+    },
+    {
+        "id": 4,
+        "descripcion": "Maternidad / Paternidad",
+        "remunerado": "S"
+    },
+    {
+        "id": 5,
+        "descripcion": "Estudios / Capacitación",
+        "remunerado": "N"
+    }
+]

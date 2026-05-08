@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "nombre": "Ana Maria Gomez Perez",
+        "cedula": "1710034065",
+        "sueldo": 1500.0,
+        "valor_hora": 6.25
+    },
+    {
+        "id": 2,
+        "nombre": "Eduardo David Alvarez Bajaña",
+        "cedula": "0926687856",
+        "sueldo": 2200.0,
+        "valor_hora": 9.1667
+    },
+    {
+        "id": 3,
+        "nombre": "Lucia Fernanda Soto Navas",
+        "cedula": "1312539784",
+        "sueldo": 1800.0,
+        "valor_hora": 7.5
+    },
+    {
+        "id": 4,
+        "nombre": "Renata Paola Solis Garcia",
+        "cedula": "0932302417",
+        "sueldo": 1000.0,
+        "valor_hora": 4.1667
+    }
+]

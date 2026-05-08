@@ -7,7 +7,7 @@ from models.repositorios import EmpleadoRepositorio, TipoPermisoRepositorio, Per
 from controllers.empleado_controller import EmpleadoController
 from controllers.permiso_controller import TipoPermisoController, PermisoController
 from utils.funciones import calcular_estadisticas_permisos
-from views.consola import (
+from views.menu import (
     limpiar_pantalla, imprimir_titulo, imprimir_seccion,
     imprimir_exito, imprimir_error, imprimir_advertencia, imprimir_info,
     pausar, solicitar_entrada, solicitar_confirmacion,
@@ -28,20 +28,18 @@ ctrl_permisos   = PermisoController(repo_permisos, repo_empleados, repo_tipos)
 
 
 def cargar_datos_muestra() -> None:
+    if ctrl_empleados.total() > 0 or ctrl_tipos.total() > 0:
+        return
+
     ctrl_empleados.registrar("Ana María Torres Vega",     "1710034065", "1500.00")
     ctrl_empleados.registrar("Carlos Eduardo Mora Lema",  "0926687856", "2200.00")
     ctrl_empleados.registrar("Lucía Fernanda Soto Navas", "1312539784", "1800.00")
 
-    ctrl_tipos.registrar("Enfermedad / Salud",             "S")
-    ctrl_tipos.registrar("Calamidad Doméstica",            "S")
-    ctrl_tipos.registrar("Permiso Personal sin Sueldo",    "N")
-    ctrl_tipos.registrar("Maternidad / Paternidad",        "S")
-    ctrl_tipos.registrar("Estudios / Capacitación",        "N")
-
-    ctrl_permisos.registrar("1", "1", "2025-01-10", "2025-01-12", "D", "3")
-    ctrl_permisos.registrar("2", "3", "2025-02-05", "2025-02-05", "H", "4")
-    ctrl_permisos.registrar("3", "2", "2025-03-15", "2025-03-16", "D", "2")
-    ctrl_permisos.registrar("1", "5", "2025-04-01", "2025-04-03", "D", "3")
+    ctrl_tipos.registrar("Enfermedad / Salud",          "S")
+    ctrl_tipos.registrar("Calamidad Doméstica",         "S")
+    ctrl_tipos.registrar("Permiso Personal sin Sueldo", "N")
+    ctrl_tipos.registrar("Maternidad / Paternidad",     "S")
+    ctrl_tipos.registrar("Estudios / Capacitación",     "N")
 
 
 def modulo_empleados() -> None:

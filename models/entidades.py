@@ -1,13 +1,13 @@
 import datetime
 from typing import Optional
 
-
+IDENTIFICATION_LENGTH = 10
 class Empleado:
 
     def __init__(self, nombre: str, cedula: str, sueldo: float):
         self.id: Optional[int] = None
         self.nombre: str = nombre
-        self.cedula: str = cedula
+        self.cedula: str = cedula[:IDENTIFICATION_LENGTH]
         self.sueldo: float = sueldo
         self.valor_hora: float = round(sueldo / 240, 4)
 
@@ -19,6 +19,12 @@ class Empleado:
             "sueldo": self.sueldo,
             "valor_hora": self.valor_hora,
         }
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "Empleado":
+        emp = cls(data["nombre"], data["cedula"], data["sueldo"])
+        emp.id = data["id"]
+        return emp
 
     def __str__(self) -> str:
         return (
@@ -48,6 +54,12 @@ class TipoPermiso:
             "descripcion": self.descripcion,
             "remunerado": self.remunerado,
         }
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "TipoPermiso":
+        tp = cls(data["descripcion"], data["remunerado"])
+        tp.id = data["id"]
+        return tp
 
     def __str__(self) -> str:
         rem = "Remunerado" if self.es_remunerado else "No Remunerado"
@@ -92,6 +104,20 @@ class Permiso:
             "tiempo": self.tiempo,
             "descuento": self.descuento,
         }
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "Permiso":
+        p = cls(
+            id_empleado=data["id_empleado"],
+            id_tipo_permiso=data["id_tipo_permiso"],
+            fecha_desde=datetime.date.fromisoformat(data["fecha_desde"]),
+            fecha_hasta=datetime.date.fromisoformat(data["fecha_hasta"]),
+            tipo=data["tipo"],
+            tiempo=data["tiempo"],
+        )
+        p.id = data["id"]
+        p.descuento = data["descuento"]
+        return p
 
     def __str__(self) -> str:
         tipo_label = "Días" if self.tipo == "D" else "Horas"

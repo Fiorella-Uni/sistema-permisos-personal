@@ -4,6 +4,10 @@ from models.entidades import Empleado, TipoPermiso, Permiso
 
 
 class EmpleadoRepositorio(Repositorio):
+    archivo_json = "data/empleados.json"
+
+    def _desde_dict(self, data: dict) -> Empleado:
+        return Empleado.from_dict(data)
 
     def buscar_por_cedula(self, cedula: str) -> Optional[Empleado]:
         resultado = list(filter(
@@ -27,6 +31,10 @@ class EmpleadoRepositorio(Repositorio):
 
 
 class TipoPermisoRepositorio(Repositorio):
+    archivo_json = "data/tipos_permiso.json"
+
+    def _desde_dict(self, data: dict) -> TipoPermiso:
+        return TipoPermiso.from_dict(data)
 
     def buscar_por_descripcion(self, texto: str) -> List[TipoPermiso]:
         texto_lower = texto.lower()
@@ -43,6 +51,10 @@ class TipoPermisoRepositorio(Repositorio):
 
 
 class PermisoRepositorio(Repositorio):
+    archivo_json = "data/permisos.json"
+
+    def _desde_dict(self, data: dict) -> Permiso:
+        return Permiso.from_dict(data)
 
     def obtener_por_empleado(self, id_empleado: int) -> List[Permiso]:
         return list(filter(

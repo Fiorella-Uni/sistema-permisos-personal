@@ -483,12 +483,48 @@ main()
 | **Type hints** | Todo el proyecto | `List`, `Optional`, `Dict`, `Any` |
 
 ---
+## 💬 Prompts Utilizados en Claude
+
+> Prompts usados durante el desarrollo del proyecto con ayuda de IA.
+
+---
+
+**Estructura y arquitectura**
+- "Ayúdame a estructurar un proyecto Python con patrón MVC para gestión de permisos laborales"
+- "¿Cómo organizo las carpetas de un mini-framework en Python?"
+- "Necesito una arquitectura limpia que separe modelos, controladores y vistas en consola"
+
+**Programación Orientada a Objetos**
+- "¿Cómo creo una clase abstracta en Python que obligue a implementar métodos CRUD?"
+- "Explícame cómo funciona la herencia múltiple con Mixins en Python"
+- "¿Cómo uso `@property` para encapsular lógica en mis entidades?"
+- "¿Cómo apilo decoradores en métodos de una clase sin perder el nombre original de la función?"
+- "¿Qué es el MRO en Python y cómo afecta a `super().__init__()` en herencia múltiple?"
+
+**Lógica de negocio**
+- "¿Cómo valido una cédula ecuatoriana con el algoritmo Módulo 10 en Python?"
+- "Necesito calcular el descuento de un permiso según si es remunerado, por horas o por días"
+- "¿Cómo hago búsquedas parciales case-insensitive sobre una lista de objetos?"
+
+**Programación funcional**
+- "¿Cómo uso `map`, `filter` y `reduce` para calcular estadísticas sobre una lista de objetos?"
+- "¿Cómo paso funciones como parámetro en Python usando lambdas?"
+
+**Interfaz de consola**
+- "¿Cómo uso códigos ANSI para darle color a la terminal en Python?"
+- "¿Cómo muevo el cursor a una posición específica en consola con `gotoxy`?"
+- "Ayúdame a crear una función que imprima tablas formateadas en la terminal"
+
+**Documentación**
+- "Genera un README completo para mi proyecto Python con estructura MVC y POO, incluyendo descripción de clases, métodos, tabla de conceptos aplicados y flujo de ejecución"
+
+ ---
 
 ## Cómo ejecutar
 
 ```bash
-cd permisos_personal
-python main.py
+cd SistemaPermisos_limpio
+python main.py 
 ```
 
 Requiere Python 3.8 o superior. No tiene dependencias externas.
