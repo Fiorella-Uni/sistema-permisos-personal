@@ -6,13 +6,13 @@
 
 ## Integrantes del Equipo
 
-| N° | Nombre Completo | Rol |
-|:---:|---|:---:|
-| 1 | Fiorella Naomi Solis Garcia | Desarrolladora |
-| 2 | Katherine Michelle Jara Plasencia | Desarrolladora |
-| 3 | Melany Anahis Parra Potes | Desarrolladora |
-| 4 | Jamile Waleska Parra Avila | Desarrolladora |
-| 5 | Tiffany Andrea Arroyo Cevillano | Desarrolladora |
+| N° | Nombre Completo |
+|:---:|---|
+| 1 | Fiorella Naomi Solis Garcia | 
+| 2 | Katherine Michelle Jara Plasencia |
+| 3 | Melany Anahis Parra Potes | 
+| 4 | Jamile Waleska Parra Avila | 
+| 5 | Tiffany Andrea Arroyo Cevillano | 
 
 **Materia:** Programación Orientada a Objetos  
 **Fecha:** Mayo 2026
