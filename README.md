@@ -21,8 +21,8 @@
 
 ## Repositorio GitHub
 
-```
-https://github.com/[usuario]/sistema_permisos_2
+```[
+https://github.com/Fiorella-Uni/sistema-permisos-personal.git
 ```
 
 ---
