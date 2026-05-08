@@ -1,51 +1,100 @@
 # Sistema de Registro de Permisos del Personal
 
-Sistema de gestión de permisos laborales desarrollado en Python con una arquitectura de **mini-framework** que aplica los pilares de la **Programación Orientada a Objetos (POO)**.
+**Sistema de gestión de permisos laborales desarrollado en Python con arquitectura de mini-framework que aplica los cuatro pilares de la Programación Orientada a Objetos.**
+
+---
+
+## Integrantes del Equipo
+
+| N° | Nombre Completo | Rol |
+|:---:|---|:---:|
+| 1 | Fiorella Naomi Solis Garcia | Desarrolladora |
+| 2 | Katherine Michelle Jara Plasencia | Desarrolladora |
+| 3 | Melany Anahis Parra Potes | Desarrolladora |
+| 4 | Jamile Waleska Parra Avila | Desarrolladora |
+| 5 | Tiffany Andrea Arroyo Cevillano | Desarrolladora |
+
+**Materia:** Programación Orientada a Objetos  
+**Fecha:** Mayo 2026
+
+---
+
+## Repositorio GitHub
+
+```
+https://github.com/[usuario]/sistema_permisos_2
+```
+
+---
+
+## Objetivo del Proyecto
+
+### Objetivo General
+
+Desarrollar un **Sistema de Gestión de Permisos Laborales** en Python que aplique de manera integral los cuatro pilares de la **Programación Orientada a Objetos** (Abstracción, Herencia, Encapsulamiento y Polimorfismo), mediante la implementación de un mini-framework con arquitectura **Modelo-Vista-Controlador (MVC)**, que permita registrar, consultar, actualizar y eliminar permisos del personal de una empresa, calculando automáticamente descuentos salariales según el tipo de permiso, y demostrando el uso de clases abstractas, herencia múltiple, decoradores, mixins, funciones de orden superior y validaciones avanzadas como el algoritmo Módulo 10 para cédulas ecuatorianas.
+
+### Objetivos Específicos
+
+- Implementar **clases abstractas** con el módulo `abc` de Python para definir contratos CRUD que obliguen a los repositorios concretos a implementar los cinco métodos base.
+- Aplicar **herencia múltiple** mediante Mixins (`LoggerMixin`, `ValidationMixin`) en los controladores, aprovechando el MRO (Method Resolution Order) de Python.
+- Demostrar **encapsulamiento** con atributos privados (convención `_`), propiedades `@property` y métodos de acceso controlado en entidades y controladores.
+- Usar **polimorfismo** a través de la cadena de herencia `CRUDBase → Repositorio → {EmpleadoRepositorio, TipoPermisoRepositorio, PermisoRepositorio}`.
+- Implementar **decoradores de función** (`@manejar_errores`, `@registrar_accion`, `@validar_id_positivo`, `@confirmar_operacion`, `@cronometrar`) para separar responsabilidades transversales.
+- Aplicar **programación funcional** con `map()`, `filter()` y `reduce()` en el cálculo de estadísticas del sistema.
+- Validar cédulas ecuatorianas usando el **algoritmo Módulo 10**, verificando provincia, tipo de persona y dígito verificador.
+- Crear una interfaz de consola interactiva y colorida usando **códigos de escape ANSI**, con funciones de posicionamiento de cursor (`gotoxy`).
 
 ---
 
 ## Estructura del Proyecto
 
 ```
-permisos_personal/
+sistema_permisos_2/
 ├── core/
-│   ├── base.py           → Clases abstractas CRUD
-│   ├── decoradores.py    → Decoradores y funciones de orden superior
-│   └── mixins.py         → Mixins reutilizables (Logger, Validation)
+│   ├── base.py              → Clases abstractas CRUD (CRUDBase, Repositorio)
+│   ├── decoradores.py       → Decoradores y funciones de orden superior
+│   ├── mixins.py            → Mixins reutilizables (LoggerMixin, ValidationMixin)
+│   └── json_manager.py      → Gestión de persistencia en archivos JSON
 ├── models/
-│   ├── entidades.py      → Modelos de dominio (Empleado, TipoPermiso, Permiso)
-│   └── repositorios.py   → Repositorios concretos por entidad
+│   ├── entidades.py         → Modelos de dominio (Empleado, TipoPermiso, Permiso)
+│   └── repositorios.py      → Repositorios concretos por entidad
 ├── controllers/
-│   ├── empleado_controller.py  → Lógica de negocio de Empleados
-│   └── permiso_controller.py  → Lógica de negocio de Permisos
-├── views/
-│   └── consola.py        → Interfaz de usuario por consola
+│   ├── empleado_controller.py   → Lógica de negocio de Empleados
+│   └── permiso_controller.py   → Lógica de negocio de Permisos y Tipos
+├── data/
+│   ├── empleados.json       → Persistencia de empleados
+│   ├── permisos.json        → Persistencia de permisos
+│   ├── tipos_permiso.json   → Tipos de permiso disponibles
+│   ├── entidades.json       → Datos de entidades
+│   └── repositorios.json    → Datos de repositorios
+├── docs/
+│   ├── arquitectura_codigo.excalidraw  → Diagrama de arquitectura
+│   └── diagrama_clases.excalidraw      → Diagrama de clases UML
 ├── utils/
-│   └── funciones.py      → Funciones de utilidad y cálculos
-└── main.py               → Punto de entrada del sistema
+│   ├── funciones.py         → Funciones de orden superior y cálculos
+│   └── test_json.py         → Pruebas de persistencia JSON
+└── main.py                  → Punto de entrada del sistema
 ```
 
 ---
 
 ## Arquitectura: Patrón MVC
 
-El proyecto sigue el patrón **Modelo-Vista-Controlador**:
-
 | Capa | Carpeta | Responsabilidad |
 |---|---|---|
-| Modelo | `models/` | Datos y persistencia en memoria |
-| Vista | `views/` | Presentación en consola con colores ANSI |
-| Controlador | `controllers/` | Lógica de negocio y validaciones |
-| Core | `core/` | Base del mini-framework (abstractas, mixins, decoradores) |
-| Utils | `utils/` | Funciones de orden superior y cálculos |
+| **Modelo** | `models/` | Datos y persistencia en memoria / JSON |
+| **Vista** | `views/` | Presentación en consola con colores ANSI |
+| **Controlador** | `controllers/` | Lógica de negocio y validaciones |
+| **Core** | `core/` | Base del mini-framework (abstractas, mixins, decoradores) |
+| **Utils** | `utils/` | Funciones de orden superior y cálculos estadísticos |
 
 ---
 
-## POO: Pilares Aplicados en el Proyecto
+## Pilares de la POO Aplicados
 
 ### 1. Abstracción — `core/base.py`
 
-La abstracción se aplica mediante la clase abstracta `CRUDBase`, que define **qué operaciones deben existir** sin especificar **cómo** se implementan. Utiliza el módulo `abc` de Python.
+La abstracción se aplica mediante la clase abstracta `CRUDBase`, que define **qué operaciones deben existir** sin especificar **cómo** se implementan:
 
 ```python
 from abc import ABC, abstractmethod
@@ -67,15 +116,7 @@ class CRUDBase(ABC):
     def eliminar(self, id_entidad): pass
 ```
 
-`CRUDBase` establece el **contrato** que toda clase de repositorio debe cumplir. Ningún repositorio puede ser instanciado sin implementar estos 5 métodos.
-
-La clase `Repositorio` hereda de `CRUDBase` y provee una **implementación genérica** de persistencia en memoria usando un diccionario interno (`_almacen`).
-
----
-
-### 2. Herencia — Cadena de herencia completa
-
-El proyecto tiene una cadena de herencia de tres niveles:
+### 2. Herencia — Cadena completa de herencia
 
 ```
 CRUDBase (abstracta)
@@ -85,52 +126,21 @@ CRUDBase (abstracta)
             └── PermisoRepositorio
 ```
 
-Los repositorios concretos heredan todo el CRUD de `Repositorio` y solo agregan **métodos de búsqueda específicos** del dominio:
-
-- `EmpleadoRepositorio.buscar_por_cedula()` — Búsqueda por cédula
-- `EmpleadoRepositorio.buscar_por_nombre()` — Búsqueda parcial por nombre
-- `TipoPermisoRepositorio.obtener_remunerados()` — Filtro por tipo remunerado
-- `PermisoRepositorio.obtener_por_empleado()` — Permisos de un empleado
-- `PermisoRepositorio.obtener_por_rango_fechas()` — Filtro por rango de fechas
-
----
-
 ### 3. Encapsulamiento — Atributos y acceso controlado
 
-El encapsulamiento se aplica en varias clases:
-
-**En `Repositorio`:** los atributos internos son privados (convención `_`):
 ```python
-self._almacen: Dict[int, Any] = {}
-self._contador_id: int = 0
-```
+class Repositorio(CRUDBase):
+    def __init__(self):
+        self._almacen: Dict[int, Any] = {}   # privado
+        self._contador_id: int = 0            # privado
 
-**En los controladores:** el repositorio se inyecta y se accede solo a través de métodos públicos:
-```python
-class EmpleadoController(LoggerMixin, ValidationMixin):
-    def __init__(self, repositorio):
-        self._repo = repositorio   # acceso privado
+class Permiso:
+    @property
+    def duracion_dias(self) -> int:
+        return (self.fecha_hasta - self.fecha_desde).days + 1
 ```
-
-**En las entidades:** `TipoPermiso` usa una `@property` para encapsular la lógica de interpretación:
-```python
-@property
-def es_remunerado(self) -> bool:
-    return self.remunerado == "S"
-```
-
-**En `Permiso`:** la propiedad `duracion_dias` calcula el valor sin exponer la lógica directamente:
-```python
-@property
-def duracion_dias(self) -> int:
-    return (self.fecha_hasta - self.fecha_desde).days + 1
-```
-
----
 
 ### 4. Polimorfismo — Herencia múltiple con Mixins
-
-El polimorfismo se aplica a través de **herencia múltiple**. Los controladores combinan comportamientos de dos Mixins independientes:
 
 ```python
 class EmpleadoController(LoggerMixin, ValidationMixin):
@@ -140,50 +150,29 @@ class PermisoController(LoggerMixin, ValidationMixin):
     ...
 ```
 
-Ambos controladores usan los mismos métodos `log_info()`, `validar_no_vacio()`, `validar_fecha()`, etc., sin duplicar código. Python resuelve la herencia múltiple mediante el **MRO (Method Resolution Order)**.
+---
 
-Los Mixins llaman a `super().__init__()` cooperativamente para funcionar bien en herencia múltiple:
-```python
-class LoggerMixin:
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._log_historial: list = []
-```
+## Conceptos POO Adicionales
+
+| Concepto | Dónde | Cómo |
+|---|---|---|
+| Clases abstractas | `CRUDBase` | `ABC` + `@abstractmethod` |
+| Herencia múltiple | Controladores | `(LoggerMixin, ValidationMixin)` |
+| Propiedades | `TipoPermiso`, `Permiso` | `@property` |
+| Métodos estáticos | `ValidationMixin` | `@staticmethod` |
+| Inyección de dependencias | `PermisoController` | Repositorios como parámetros |
+| Decoradores de función | `core/decoradores.py` | `functools.wraps` |
+| Funciones de orden superior | `utils/funciones.py` | `map`, `filter`, `reduce`, lambdas |
+| Dunder methods | Entidades | `__str__`, `__repr__` |
+| Type hints | Todo el proyecto | `List`, `Optional`, `Dict`, `Any` |
 
 ---
 
-## Descripción Detallada de Clases y Métodos
-
-### `core/base.py`
-
-#### `CRUDBase` (abstracta)
-Define la interfaz CRUD estándar que todo repositorio debe implementar.
-
-| Método | Descripción |
-|---|---|
-| `crear(datos)` | Crea y persiste una nueva entidad |
-| `obtener_por_id(id)` | Retorna una entidad por ID o `None` |
-| `obtener_todos()` | Retorna lista de todas las entidades |
-| `actualizar(id, datos)` | Actualiza una entidad existente |
-| `eliminar(id)` | Elimina una entidad, retorna `bool` |
-| `contar()` | Método concreto: cuenta total de entidades |
-
-#### `Repositorio` (implementación base)
-Implementa `CRUDBase` usando un diccionario en memoria.
-
-| Atributo/Método | Descripción |
-|---|---|
-| `_almacen` | Diccionario `{id: entidad}` de persistencia |
-| `_contador_id` | Contador auto-incremental para IDs |
-| `_generar_id()` | Genera un nuevo ID único |
-
----
+## Descripción de Clases y Módulos
 
 ### `core/mixins.py`
 
 #### `LoggerMixin`
-Agrega capacidad de logging con historial a cualquier clase.
-
 | Método | Descripción |
 |---|---|
 | `log(nivel, mensaje)` | Registra con timestamp y nivel |
@@ -194,251 +183,63 @@ Agrega capacidad de logging con historial a cualquier clase.
 | `mostrar_historial()` | Imprime las últimas 20 entradas |
 
 #### `ValidationMixin`
-Provee métodos estáticos de validación reutilizables que lanzan `ValueError` con mensajes descriptivos.
-
 | Método | Descripción |
 |---|---|
 | `validar_no_vacio(valor, campo)` | Valida string no vacío |
 | `validar_numero_positivo(valor, campo)` | Valida número > 0 |
 | `validar_opcion(valor, opciones, campo)` | Valida que valor esté en lista permitida |
-| `validar_fecha(fecha_str, campo)` | Convierte string a `datetime.date` (acepta DD/MM/YYYY y YYYY-MM-DD) |
+| `validar_fecha(fecha_str, campo)` | Convierte string a `date` (DD/MM/YYYY o YYYY-MM-DD) |
 | `validar_rango_fechas(inicio, fin)` | Valida que inicio ≤ fin |
-| `validar_cedula_ecuatoriana(cedula)` | Implementa algoritmo Módulo 10 para validar cédulas ecuatorianas |
-
-##### Algoritmo Módulo 10 (validación de cédula):
-1. Exactamente 10 dígitos
-2. Primeros 2 dígitos = provincia (01–24)
-3. Tercer dígito < 6 (persona natural)
-4. Multiplica dígitos 1–9 por coeficientes `[2,1,2,1,2,1,2,1,2]`; si producto ≥ 10, resta 9
-5. Suma todos los productos; dígito verificador = `(10 - suma % 10) % 10`
-6. Compara con el dígito 10 de la cédula
-
----
+| `validar_cedula_ecuatoriana(cedula)` | Algoritmo Módulo 10 para cédulas ecuatorianas |
 
 ### `core/decoradores.py`
 
-Los decoradores son funciones que **envuelven** a otras funciones, añadiendo comportamiento antes/después sin modificar el código original.
-
 | Decorador | Tipo | Descripción |
 |---|---|---|
-| `@manejar_errores` | Simple | Captura `ValueError` y `Exception`, imprime mensaje amigable |
-| `@registrar_accion(desc)` | Fábrica | Registra en el log la ejecución con timestamp |
-| `@validar_id_positivo` | Simple | Valida que el primer argumento sea entero positivo |
-| `@confirmar_operacion(msg)` | Fábrica | Solicita confirmación `s/n` antes de ejecutar |
-| `@cronometrar` | Simple | Mide tiempo de ejecución (muestra si > 0.5s) |
-
-**Función `entrada_requerida(prompt, tipo, validador)`:** función de orden superior que repite la solicitud de entrada hasta obtener un valor válido del tipo especificado.
-
-#### Ejemplo de apilamiento de decoradores:
-```python
-@manejar_errores          # 1° captura excepciones
-@registrar_accion(...)    # 2° registra en log
-@validar_id_positivo      # 3° valida el ID
-def eliminar(self, id_empleado):
-    ...
-```
-Los decoradores se aplican de abajo hacia arriba en la pila.
-
----
+| `@manejar_errores` | Simple | Captura `ValueError` y `Exception` |
+| `@registrar_accion(desc)` | Fábrica | Registra ejecución con timestamp |
+| `@validar_id_positivo` | Simple | Valida primer argumento entero positivo |
+| `@confirmar_operacion(msg)` | Fábrica | Solicita confirmación `s/n` |
+| `@cronometrar` | Simple | Mide tiempo de ejecución |
 
 ### `models/entidades.py`
-
-Modelos de datos del dominio (equivalentes a entidades de base de datos).
 
 #### `Empleado`
 | Atributo | Tipo | Descripción |
 |---|---|---|
-| `id` | `int` | Asignado automáticamente por el repositorio |
+| `id` | `int` | Asignado por el repositorio |
 | `nombre` | `str` | Nombre completo |
-| `cedula` | `str` | Cédula validada con Módulo 10 |
+| `cedula` | `str` | Validada con Módulo 10 |
 | `sueldo` | `float` | Sueldo mensual |
-| `valor_hora` | `float` | Calculado: `sueldo / 240` |
-
-Métodos: `to_dict()`, `__str__()`, `__repr__()`
+| `valor_hora` | `@property float` | `sueldo / 240` |
 
 #### `TipoPermiso`
 | Atributo | Tipo | Descripción |
 |---|---|---|
-| `id` | `int` | Auto-asignado |
 | `descripcion` | `str` | Nombre del tipo (ej: "Enfermedad") |
 | `remunerado` | `str` | `'S'` o `'N'` |
-| `es_remunerado` | `@property bool` | Computed: `remunerado == "S"` |
+| `es_remunerado` | `@property bool` | `remunerado == "S"` |
 
 #### `Permiso`
 | Atributo | Tipo | Descripción |
 |---|---|---|
 | `id_empleado` | `int` | FK al empleado |
 | `id_tipo_permiso` | `int` | FK al tipo de permiso |
-| `fecha_desde` | `date` | Inicio del permiso |
-| `fecha_hasta` | `date` | Fin del permiso |
+| `fecha_desde` / `fecha_hasta` | `date` | Rango del permiso |
 | `tipo` | `str` | `'D'` (días) o `'H'` (horas) |
 | `tiempo` | `float` | Cantidad de días u horas |
 | `descuento` | `float` | Calculado por el controlador |
-| `duracion_dias` | `@property int` | Diferencia calendario entre fechas |
+| `duracion_dias` | `@property int` | Diferencia entre fechas + 1 |
 
 ---
 
-### `models/repositorios.py`
-
-Repositorios concretos que extienden `Repositorio` con búsquedas específicas.
-
-#### `EmpleadoRepositorio`
-| Método | Descripción |
-|---|---|
-| `buscar_por_cedula(cedula)` | Búsqueda exacta por cédula |
-| `buscar_por_nombre(nombre)` | Búsqueda parcial case-insensitive |
-| `cedula_existe(cedula, excluir_id)` | Verifica duplicados (con soporte para update) |
-
-#### `TipoPermisoRepositorio`
-| Método | Descripción |
-|---|---|
-| `buscar_por_descripcion(texto)` | Búsqueda parcial en descripción |
-| `obtener_remunerados()` | Filtro: solo remunerados |
-| `obtener_no_remunerados()` | Filtro: solo no remunerados |
-
-#### `PermisoRepositorio`
-| Método | Descripción |
-|---|---|
-| `obtener_por_empleado(id_empleado)` | Todos los permisos de un empleado |
-| `obtener_por_tipo_permiso(id_tipo)` | Permisos de un tipo específico |
-| `obtener_por_rango_fechas(inicio, fin)` | Permisos dentro de un rango de fechas |
-| `obtener_por_tipo(tipo)` | Filtro por `'D'` o `'H'` |
-
-Todos usan `filter()` con funciones lambda sobre la colección en memoria.
-
----
-
-### `controllers/empleado_controller.py`
-
-#### `EmpleadoController(LoggerMixin, ValidationMixin)`
-Orquesta la lógica de negocio para la gestión de empleados.
-
-| Método | Decoradores | Descripción |
-|---|---|---|
-| `registrar(nombre, cedula, sueldo_str)` | `@manejar_errores`, `@registrar_accion` | Valida y crea un empleado |
-| `obtener(id_empleado)` | `@manejar_errores`, `@validar_id_positivo` | Obtiene empleado por ID |
-| `listar_todos()` | — | Lista todos los empleados |
-| `actualizar(id, nombre, cedula, sueldo_str)` | Los tres decoradores | Actualiza campos no-nulos |
-| `eliminar(id_empleado)` | Los tres decoradores | Elimina un empleado |
-| `buscar_por_cedula(cedula)` | — | Delegación al repositorio |
-| `buscar_por_nombre(nombre)` | — | Delegación al repositorio |
-| `total()` | — | Cuenta total de empleados |
-
----
-
-### `controllers/permiso_controller.py`
-
-#### `TipoPermisoController(LoggerMixin, ValidationMixin)`
-Gestiona tipos/categorías de permisos. Misma estructura que `EmpleadoController`.
-
-#### `PermisoController(LoggerMixin, ValidationMixin)`
-El controlador más complejo: orquesta validaciones **cruzadas** entre tres entidades y calcula descuentos.
-
-El constructor recibe los **tres repositorios** como dependencias (inyección de dependencias):
-```python
-def __init__(self, repo_permisos, repo_empleados, repo_tipos):
-    self._repo = repo_permisos
-    self._repo_emp = repo_empleados
-    self._repo_tipos = repo_tipos
-```
-
-| Método | Descripción |
-|---|---|
-| `registrar(...)` | Valida empleado, tipo permiso, fechas, tipo y tiempo; calcula descuento |
-| `obtener(id)` | Busca permiso por ID |
-| `actualizar(id, ...)` | Actualiza y recalcula descuento |
-| `eliminar(id)` | Elimina permiso |
-| `obtener_por_empleado(id)` | Permisos de un empleado |
-
----
-
-### `utils/funciones.py`
-
-Funciones puras que aplican programación funcional con `map`, `filter` y `reduce`.
-
-#### `calcular_descuento(empleado, permiso, tipo_permiso)`
-Reglas de negocio para el cálculo de descuento:
+## Lógica de Negocio — Cálculo de Descuento
 
 | Condición | Fórmula |
 |---|---|
 | Permiso remunerado | `descuento = 0` |
 | Tipo `'H'` (horas), no remunerado | `descuento = valor_hora × tiempo` |
 | Tipo `'D'` (días), no remunerado | `descuento = (sueldo / 30) × tiempo` |
-
-#### `calcular_estadisticas_permisos(permisos, empleados, tipos_permiso)`
-Calcula métricas completas usando exclusivamente funciones de orden superior:
-- `map()` para transformar colecciones
-- `filter()` para filtrar subconjuntos
-- `reduce()` para acumular totales
-
-Retorna un diccionario con: total empleados, total permisos, permisos por tipo, tiempos totales, total descuentos, sueldo promedio y empleado con más permisos.
-
-#### Funciones auxiliares
-| Función | Descripción |
-|---|---|
-| `aplicar_a_lista(col, fn)` | Wrapper de `map()` |
-| `filtrar_lista(col, fn)` | Wrapper de `filter()` |
-| `acumular(col, fn, inicial)` | Wrapper de `reduce()` |
-| `formatear_fecha(fecha)` | Convierte `date` a `DD/MM/YYYY` |
-| `calcular_dias_habiles(inicio, fin)` | Cuenta días de lunes a viernes |
-
----
-
-### `views/consola.py`
-
-Capa de presentación completa con colores ANSI.
-
-#### `C` (clase de constantes)
-Centraliza todos los códigos de escape ANSI: colores de texto, colores de fondo, estilos (negrita, subrayado) y alias semánticos (`C.EXITO`, `C.ERROR`, `C.TITULO`, etc.).
-
-#### Funciones de posicionamiento
-| Función | Descripción |
-|---|---|
-| `gotoxy(x, y)` | Mueve cursor a posición (x, y) |
-| `ocultar_cursor()` | Oculta el cursor de la terminal |
-| `mostrar_cursor()` | Muestra el cursor |
-| `guardar_cursor()` / `restaurar_cursor()` | Guarda y restaura posición |
-
-#### Funciones de presentación
-| Función | Descripción |
-|---|---|
-| `imprimir_titulo(titulo, subtitulo)` | Encabezado con línea doble |
-| `imprimir_exito/error/advertencia/info(msg)` | Mensajes con icono y color |
-| `solicitar_entrada(prompt, obligatorio)` | Input coloreado con reintento |
-| `solicitar_confirmacion(msg)` | Confirmación `s/n` |
-
-#### Funciones de tabla
-| Función | Descripción |
-|---|---|
-| `tabla_empleados(empleados)` | Tabla con ID, nombre, cédula, sueldo, valor/hora |
-| `tabla_tipos_permiso(tipos)` | Tabla con ID, descripción, indicador remunerado |
-| `tabla_permisos(permisos, empleados, tipos)` | Tabla con nombres resueltos y descuento en color |
-| `ficha_empleado(empleado)` | Ficha detallada de un empleado |
-| `ficha_permiso(permiso, empleado, tipo)` | Ficha detallada de un permiso con cálculo |
-| `panel_estadisticas(stats, empleado_mas)` | Panel completo de métricas |
-
----
-
-### `main.py`
-
-Punto de entrada. Instancia los repositorios y controladores, carga datos de muestra y lanza el menú interactivo.
-
-```python
-repo_empleados  = EmpleadoRepositorio()
-repo_tipos      = TipoPermisoRepositorio()
-repo_permisos   = PermisoRepositorio()
-
-ctrl_empleados  = EmpleadoController(repo_empleados)
-ctrl_tipos      = TipoPermisoController(repo_tipos)
-ctrl_permisos   = PermisoController(repo_permisos, repo_empleados, repo_tipos)
-```
-
-Módulos del menú:
-- `modulo_empleados()` — CRUD completo de empleados
-- `modulo_tipos_permiso()` — CRUD de tipos de permiso
-- `modulo_permisos()` — CRUD de permisos con cálculo de descuento
-- `modulo_estadisticas()` — Panel de métricas
-- `modulo_historial()` — Log de acciones de todos los controladores
 
 ---
 
@@ -468,63 +269,62 @@ main()
 
 ---
 
-## Conceptos POO Adicionales Aplicados
+## Prompts Utilizados con la IA
 
-| Concepto | Dónde | Cómo |
-|---|---|---|
-| **Clases abstractas** | `CRUDBase` | `ABC` + `@abstractmethod` |
-| **Herencia múltiple** | Controladores | `(LoggerMixin, ValidationMixin)` |
-| **Propiedades** | `TipoPermiso`, `Permiso` | `@property` |
-| **Métodos estáticos** | `ValidationMixin` | `@staticmethod` |
-| **Inyección de dependencias** | `PermisoController` | Repositorios como parámetros |
-| **Decoradores de función** | `core/decoradores.py` | `functools.wraps` |
-| **Funciones de orden superior** | `utils/funciones.py` | `map`, `filter`, `reduce`, lambdas |
-| **Dunder methods** | Entidades | `__str__`, `__repr__` |
-| **Type hints** | Todo el proyecto | `List`, `Optional`, `Dict`, `Any` |
+### Estructura y Arquitectura
+- *"Ayúdame a estructurar un proyecto Python con patrón MVC para gestión de permisos laborales."*
+- *"¿Cómo organizo las carpetas de un mini-framework en Python?"*
+- *"Necesito una arquitectura limpia que separe modelos, controladores y vistas en consola."*
+- *"¿Cómo implemento inyección de dependencias en Python sin usar un framework externo?"*
+
+### Programación Orientada a Objetos
+- *"¿Cómo creo una clase abstracta en Python que obligue a implementar métodos CRUD?"*
+- *"Explícame cómo funciona la herencia múltiple con Mixins en Python."*
+- *"¿Cómo uso @property para encapsular lógica en mis entidades?"*
+- *"¿Cómo apilo decoradores en métodos de una clase sin perder el nombre original de la función?"*
+- *"¿Qué es el MRO en Python y cómo afecta a super().__init__() en herencia múltiple?"*
+- *"¿Cómo implemento el patrón Repositorio genérico con herencia en Python?"*
+
+### Lógica de Negocio y Validaciones
+- *"¿Cómo valido una cédula ecuatoriana con el algoritmo Módulo 10 en Python?"*
+- *"Necesito calcular el descuento de un permiso según si es remunerado, por horas o por días."*
+- *"¿Cómo hago búsquedas parciales case-insensitive sobre una lista de objetos?"*
+- *"¿Cómo valido que una fecha de inicio sea menor o igual a la fecha de fin?"*
+- *"¿Cómo convierto un string de fecha en formato DD/MM/YYYY a un objeto date en Python?"*
+
+### Programación Funcional
+- *"¿Cómo uso map, filter y reduce para calcular estadísticas sobre una lista de objetos?"*
+- *"¿Cómo paso funciones como parámetro en Python usando lambdas?"*
+- *"¿Cómo creo una función de orden superior que repita un input hasta recibir un valor válido?"*
+- *"Muéstrame cómo implementar wrappers de map() y filter() que sean reutilizables."*
+
+### Interfaz de Consola
+- *"¿Cómo uso códigos ANSI para darle color a la terminal en Python?"*
+- *"¿Cómo muevo el cursor a una posición específica en consola con gotoxy?"*
+- *"Ayúdame a crear una función que imprima tablas formateadas en la terminal."*
+- *"¿Cómo oculto y muestro el cursor del terminal en Python?"*
+- *"¿Cómo creo menús interactivos con colores en consola usando Python puro?"*
+
+### Documentación
+- *"Genera un README completo para mi proyecto Python con estructura MVC y POO."*
+- *"Realiza el README completo con carátula, integrantes, objetivo del proyecto, link del repositorio e incluye todos los prompts que hemos utilizado."*
+- *"Pídele a la IA que te genere un PDF colorido del README."*
 
 ---
-## 💬 Prompts Utilizados en Claude
 
-> Prompts usados durante el desarrollo del proyecto con ayuda de IA.
-
----
-
-**Estructura y arquitectura**
-- "Ayúdame a estructurar un proyecto Python con patrón MVC para gestión de permisos laborales"
-- "¿Cómo organizo las carpetas de un mini-framework en Python?"
-- "Necesito una arquitectura limpia que separe modelos, controladores y vistas en consola"
-
-**Programación Orientada a Objetos**
-- "¿Cómo creo una clase abstracta en Python que obligue a implementar métodos CRUD?"
-- "Explícame cómo funciona la herencia múltiple con Mixins en Python"
-- "¿Cómo uso `@property` para encapsular lógica en mis entidades?"
-- "¿Cómo apilo decoradores en métodos de una clase sin perder el nombre original de la función?"
-- "¿Qué es el MRO en Python y cómo afecta a `super().__init__()` en herencia múltiple?"
-
-**Lógica de negocio**
-- "¿Cómo valido una cédula ecuatoriana con el algoritmo Módulo 10 en Python?"
-- "Necesito calcular el descuento de un permiso según si es remunerado, por horas o por días"
-- "¿Cómo hago búsquedas parciales case-insensitive sobre una lista de objetos?"
-
-**Programación funcional**
-- "¿Cómo uso `map`, `filter` y `reduce` para calcular estadísticas sobre una lista de objetos?"
-- "¿Cómo paso funciones como parámetro en Python usando lambdas?"
-
-**Interfaz de consola**
-- "¿Cómo uso códigos ANSI para darle color a la terminal en Python?"
-- "¿Cómo muevo el cursor a una posición específica en consola con `gotoxy`?"
-- "Ayúdame a crear una función que imprima tablas formateadas en la terminal"
-
-**Documentación**
-- "Genera un README completo para mi proyecto Python con estructura MVC y POO, incluyendo descripción de clases, métodos, tabla de conceptos aplicados y flujo de ejecución"
-
- ---
-
-## Cómo ejecutar
+## Cómo Ejecutar
 
 ```bash
-cd SistemaPermisos_limpio
-python main.py 
+cd sistema_permisos_2
+python main.py
 ```
 
-Requiere Python 3.8 o superior. No tiene dependencias externas.
+> Requiere **Python 3.8 o superior**. No tiene dependencias externas — utiliza únicamente la biblioteca estándar de Python.
+
+---
+
+<div align="center">
+
+Desarrollado con dedicación por el equipo  •  Programación Orientada a Objetos  •  2026
+
+</div>
